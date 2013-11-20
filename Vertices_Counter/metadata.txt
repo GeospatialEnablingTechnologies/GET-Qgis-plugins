@@ -16,8 +16,8 @@ changelog=
 tags=  vertices,counter
 
 tracker= http://hub.qgis.org/projects/vertices-counter/issues
-homepage= hub.qgis.org/projects/vertices-counter/wiki
-repository= 
+homepage= https://github.com/GeospatialEnablingTechnologies/GET-Qgis-plugins/wiki/Vertices-Counter
+repository= https://github.com/GeospatialEnablingTechnologies/GET-Qgis-plugins/tree/master/Vertices_Counter
 
 
 

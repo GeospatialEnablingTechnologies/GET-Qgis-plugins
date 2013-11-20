@@ -1,0 +1,28 @@
+[general]
+name=Vertices Counter
+qgisMinimumVersion=2.0
+qgisMaximumVersion=2.99
+description=Vertices Counter for Simple and Multi-Part Geometries
+version=version 1.0
+author=Alex Theleritis, Theodoros Vakkas, Simos Kamilieris, Andreas Mitrou
+
+
+email=contact@getmap.gr
+
+
+changelog= 
+
+
+tags=  vertices,counter
+
+tracker= http://hub.qgis.org/projects/vertices-counter/issues
+homepage= hub.qgis.org/projects/vertices-counter/wiki
+repository= 
+
+
+
+experimental=False
+
+
+; change icon...
+icon=icons/verts.png

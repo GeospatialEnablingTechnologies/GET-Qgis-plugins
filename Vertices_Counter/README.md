@@ -1,4 +1,8 @@
-GET-Qgis-plugins
-================
+# *Description*
 
-Plugins for QGIS by Geospatial Enabling Technologies (GET)
+Vertices Counter is a plugin that can be used for counting the vertices of simple and multi-part geometries. 
+
+# *Wiki Page*
+
+https://github.com/GeospatialEnablingTechnologies/GET-Qgis-plugins/wiki/Vertices-Counter
+

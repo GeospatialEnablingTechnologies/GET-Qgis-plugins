@@ -490,8 +490,11 @@ class Vertices_Counter:
        
         if self.radio_opened_layers.isChecked():
             item=self.combo.currentIndex()
-            layer=self.layers[item]
-            self.layer=layer
+            if item>=0:
+                layer=self.layers[item]
+                self.layer=layer
+            else:
+                layer=None
              
         elif self.radio_active_layer.isChecked():
             layer=self.iface.activeLayer()
@@ -499,26 +502,32 @@ class Vertices_Counter:
             
          
         
-            
-        if not layer.type()==0:
+        if not layer==None:    
+            if not layer.type()==0:
                    
-            self.calc_widget.setEnabled(False) 
-            errorbox=QtGui.QMessageBox(self.mainWind)
-            errorbox.setText("Please select a Vector Layer!")
-            errorbox.setWindowTitle("Invalid Layer !")
-            errorbox.show()
-        else:
-            
-            if len(layer.selectedFeatures())>0:  
-                self.calc_widget.setEnabled(True)
-                self.edit_layer_feat(layer)
-                self.file_layer_current=False
-            
-            else:
+                self.calc_widget.setEnabled(False) 
                 errorbox=QtGui.QMessageBox(self.mainWind)
-                errorbox.setText("No features selected !")
+                errorbox.setText("Please select a Vector Layer!")
+                errorbox.setWindowTitle("Invalid Layer !")
+                errorbox.show()
+            else:
+                if len(layer.selectedFeatures())>0:  
+                    self.calc_widget.setEnabled(True)
+                    self.edit_layer_feat(layer)
+                    self.file_layer_current=False
+            
+                else:
+                    errorbox=QtGui.QMessageBox(self.mainWind)
+                    errorbox.setText("No features selected !")
+                    errorbox.setWindowTitle("Error !")
+                    errorbox.show()
+        else:
+                errorbox=QtGui.QMessageBox(self.mainWind)
+                errorbox.setText("No Layer Loaded!")
                 errorbox.setWindowTitle("Error !")
                 errorbox.show()
+            
+            
             
             
      

@@ -1,4 +1,4 @@
 GET-Qgis-plugins
 ================
 
-Plugins for QGIS by Geospatial Enabling Technologies (GET)
+This is the repository containing plugins for QGIS, developed by Geospatial Enabling Technologies Ltd (GET).

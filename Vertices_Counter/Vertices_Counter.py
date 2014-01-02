@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # Import the PyQt and QGIS libraries
 from PyQt4 import QtCore, QtGui
 from qgis import *
@@ -184,8 +184,20 @@ class Vertices_Counter:
         self.calc_widget.setGeometry(10,10,self.width-10,self.height-290-30)
         self.calc_widget.setEnabled(False)
          
+        
+        self.total_verts=QtGui.QLabel(self.calc_widget)
+        self.total_verts.setGeometry(QtCore.QRect(250,10, 120, 40))
+        self.total_verts.setAlignment(QtCore.Qt.AlignCenter)
+        self.total_verts.setText("")
+         
+       
+         
+        
+        
+        
+        
         self.add_to_map_button=QtGui.QPushButton(self.calc_widget)
-        self.add_to_map_button.setGeometry(QtCore.QRect(250,10, 120, 20))
+        self.add_to_map_button.setGeometry(QtCore.QRect(250,self.height-340-30-50, 120, 20))
         self.add_to_map_button.setText("Add Vector on Map")
         self.add_to_map_button.clicked.connect(self.add_to_map)
        
@@ -332,6 +344,7 @@ class Vertices_Counter:
         self.refresh_layers()
         self.clear_table()
         self.mode='active'
+        self.total_verts.setText("")
         self.opened_layers_widget.setEnabled(False)
         self.open_file_widget.setEnabled(False)
         self.check_count_selected.setEnabled(True)
@@ -349,6 +362,7 @@ class Vertices_Counter:
         
         self.clear_table()
         self.mode='loaded_layers'
+        self.total_verts.setText("")
         self.opened_layers_widget.setEnabled(True)
         self.open_file_widget.setEnabled(False)
         self.check_count_selected.setEnabled(True)
@@ -363,6 +377,7 @@ class Vertices_Counter:
         
         self.clear_table()
         self.mode='open_file'
+        self.total_verts.setText("")
         self.opened_layers_widget.setEnabled(False)
         self.open_file_widget.setEnabled(True)
         self.check_count_selected.setEnabled(False)
@@ -603,6 +618,9 @@ class Vertices_Counter:
             vertex_count += layer_vertices
             attribute_dict[feat.id()] = { vertices_field_index: str(layer_vertices) }
             row+=1
+       
+        self.show_total(vertex_count)
+        
         if self.radio_new_col.isChecked():
             layer.dataProvider().changeAttributeValues(attribute_dict)
             layer.commitChanges()
@@ -674,6 +692,8 @@ class Vertices_Counter:
             attribute_dict[feat.id()] = { vertices_field_index: str(layer_vertices) }
             row+=1
        
+        self.show_total(vertex_count)
+       
         if self.radio_new_col.isChecked():
             layer.dataProvider().changeAttributeValues(attribute_dict)
             layer.commitChanges()
@@ -702,7 +722,8 @@ class Vertices_Counter:
             else:
                 self.layer.select(data)
            
-    
+    def show_total(self,count):
+        self.total_verts.setText("Total Vertices : "+str(count))
     def hide_feats(self):
         sel=self.layer.selectedFeatures()
         for selected in sel:
@@ -713,8 +734,7 @@ class Vertices_Counter:
     def clear_table(self):
         self.table.clearContents()
         self.table.setRowCount(0);
-    def about_window(self):
-        self.text3.setText("sdas")
+    
 
 
 if __name__ == "__main__":

@@ -3,7 +3,7 @@ name=Vertices Counter
 qgisMinimumVersion=2.0
 qgisMaximumVersion=2.99
 description=Vertices Counter for Simple and Multi-Part Geometries
-version=version 1.0.1
+version=version 1.0.2
 author=Alex Theleritis, Theodoros Vakkas, Simos Kamilieris, Andreas Mitrou
 
 

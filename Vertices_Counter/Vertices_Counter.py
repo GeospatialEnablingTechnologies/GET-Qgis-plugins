@@ -15,21 +15,20 @@ class Vertices_Counter:
         self.canvas = iface.mapCanvas()
 
     def initGui(self):
-        self.menu = QtGui.QMenu(self.iface.pluginMenu())
-        # Create action that will start plugin
-        self.action = QtGui.QAction(QtGui.QIcon(":icons/verts.png"), "Vertices Counter", self.iface.pluginMenu())
+         # Create action that will start plugin
+        self.action = QtGui.QAction(QtGui.QIcon(":icons/verts.png"), "Vertices Counter", self.iface.vectorMenu())
         # connect the action to the run method
         QtCore.QObject.connect(self.action, QtCore.SIGNAL("activated()"), self.build_ui)
         
         # Add toolbar button and menu item
-        self.iface.addToolBarIcon(self.action)
-        self.iface.addPluginToMenu("Vertices Counter",self.action)
+        self.iface.addVectorToolBarIcon(self.action)
+        self.iface.addPluginToVectorMenu("Vertices Counter",self.action)
         
 
 
     def unload(self):
         # Remove the plugin menu item and icon
-        self.iface.removePluginMenu("Vertices Counter",self.action)
+        self.iface.removePluginVectorMenu("Vertices Counter",self.action)
 
 
 

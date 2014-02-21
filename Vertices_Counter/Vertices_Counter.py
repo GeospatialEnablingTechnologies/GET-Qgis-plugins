@@ -5,6 +5,7 @@ from qgis import *
 from qgis.core import *
 import re
 import resources
+import csv
 
 
 class Vertices_Counter:
@@ -15,7 +16,8 @@ class Vertices_Counter:
         self.canvas = iface.mapCanvas()
 
     def initGui(self):
-         # Create action that will start plugin
+       
+        # Create action that will start plugin
         self.action = QtGui.QAction(QtGui.QIcon(":icons/verts.png"), "Vertices Counter", self.iface.vectorMenu())
         # connect the action to the run method
         QtCore.QObject.connect(self.action, QtCore.SIGNAL("activated()"), self.build_ui)
@@ -188,6 +190,11 @@ class Vertices_Counter:
         self.total_verts.setGeometry(QtCore.QRect(250,10, 120, 40))
         self.total_verts.setAlignment(QtCore.Qt.AlignCenter)
         self.total_verts.setText("")
+        
+        self.export_csv=QtGui.QPushButton(self.calc_widget)
+        self.export_csv.setGeometry(QtCore.QRect(250,60, 120, 40))
+        self.export_csv.setText("Export results to CSV")
+        self.export_csv.clicked.connect(self.export_to_csv)
          
        
          
@@ -269,7 +276,7 @@ class Vertices_Counter:
         self.refresh_layers()
         self.radio_active_layer.click()
         self.curr_layer_changed() 
-       
+        self.radio_no_col.click()
         return
     def curr_layer_changed(self):
         
@@ -349,7 +356,7 @@ class Vertices_Counter:
         self.check_count_selected.setEnabled(True)
         self.add_to_map_button.setVisible(False)
         self.add_to_map_button.setEnabled(False)
-
+        self.export_csv.setVisible(False)
          
          
         layer=self.iface.activeLayer()
@@ -367,6 +374,7 @@ class Vertices_Counter:
         self.check_count_selected.setEnabled(True)
         self.add_to_map_button.setVisible(False)
         self.add_to_map_button.setEnabled(False)
+        self.export_csv.setVisible(False)
       
         self.refresh_layers()
         
@@ -381,6 +389,7 @@ class Vertices_Counter:
         self.open_file_widget.setEnabled(True)
         self.check_count_selected.setEnabled(False)
         self.add_to_map_button.setVisible(True)
+        self.export_csv.setVisible(False)
         if self.file_layer_current:
             self.add_to_map_button.setEnabled(True)
         else:
@@ -417,7 +426,7 @@ class Vertices_Counter:
     def open_file_dialog(self):
         
         filename = QtGui.QFileDialog.getOpenFileName(self.mainWind, "Select Shapefile ","", "ESRI Shapefiles [OGR](*.shp *.SHP)")
-       
+        
         #drive,path_and_file=os.path.splitdrive(filename)
         #path,file=os.path.split(path_and_file)
         
@@ -723,6 +732,7 @@ class Vertices_Counter:
            
     def show_total(self,count):
         self.total_verts.setText("Total Vertices : "+str(count))
+        self.export_csv.setVisible(True)
     def hide_feats(self):
         sel=self.layer.selectedFeatures()
         for selected in sel:
@@ -734,6 +744,24 @@ class Vertices_Counter:
         self.table.clearContents()
         self.table.setRowCount(0);
     
+    def export_to_csv(self):
+         
+        filename = QtGui.QFileDialog.getSaveFileName(self.mainWind, 'Export to CSV', '', 'CSV(*.csv)')
+        
+        if not filename=="" and not self.table.rowCount()==0:
+            with open(unicode(filename), 'wb') as stream:
+                writer = csv.writer(stream)
+                writer.writerow(["Feature","Vertices"])
+                for row in range(self.table.rowCount()):
+                    rowdata = []
+                    for column in range(self.table.columnCount()):
+                        item = self.table.item(row, column)
+                        if item is not None:
+                            rowdata.append(
+                                unicode(item.text()).encode('utf8'))
+                        else:
+                            rowdata.append('')
+                    writer.writerow(rowdata)
 
 
 if __name__ == "__main__":

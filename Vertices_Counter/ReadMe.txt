@@ -17,7 +17,7 @@ Usage notes
 	=>	Drop existing one:
 		If this option is checked, any existing column already named as the column name inserted previously, will be overwritten.
 	=>	Count without adding a new column:
-		Choose this option, if you just want to perform the vertices’ count and see the results without adding a new column at the Attribute Table.
+		Choose this option, if you just want to perform the verticesï¿½ count and see the results without adding a new column at the Attribute Table.
 Important Note 1:
 This version of the plugin does not support adding a new column, containing the counting results, at the attribute table of layers loaded from databases.  
 	=>	Count Vertices for Selected Features:
@@ -29,5 +29,5 @@ When performing count on polygon features, the plugin returns the total number o
 
 Future Developments
 * Writing count results at the attribute table of layers loaded from databases.
-* Exporting count results to csv.
+
 
